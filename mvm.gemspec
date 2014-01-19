@@ -10,7 +10,6 @@ Gem::Specification.new do |spec|
   spec.email         = ["starfruits0112@gmail.com"]
   spec.description   = %q{MPICH Version Manager}
   spec.summary       = %q{MPICH Version Manager}
-  spec.homepage      = ""
   spec.license       = "MIT"
 
   spec.files         = `git ls-files`.split($/)
