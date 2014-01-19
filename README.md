@@ -25,6 +25,7 @@ Or install it yourself as:
 	* make
 	* gzip
 	* tar
+	* build tools for c, c++ and fortran etc...
 
 ## Usage
 If install directory requires root permission, you must execute mvm by root or sudo.  
