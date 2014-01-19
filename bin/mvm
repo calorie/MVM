@@ -8,6 +8,7 @@ require 'mvm/version'
 require 'init'
 require 'update'
 require 'install'
+require 'switch'
 
 program :version, MVM::VERSION
 program :description, 'MPICH Version Manager'

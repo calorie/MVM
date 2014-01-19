@@ -27,13 +27,12 @@ class Switch
 			FileUtils.rm(MVM::SYMBOLIC_LINK)
 		end
 		# create symbolic link
-		"ln -s /opt/mpich/#{version}/bin #{MVM::SYMBOLIC_LINK}"
+		system("ln -s /opt/mpich/#{version}/bin #{MVM::SYMBOLIC_LINK}")
 	end
 
 	def self.exists?(version)
 		is_exist = true
 		versions = get_available_versions
-		
 		if versions[version].nil?
 			is_exist = false
 		end
@@ -47,9 +46,7 @@ class Switch
 		path = [MVM::SETTING_DIR,MVM::INSTALLED].join("/")
 		open(path) do |f|
 			while line = f.gets
-				key = line.split(":").first[0..-8]
-				value = line.split(":")[1..-1].join(":")
-				versions[key] = value
+				versions[line.chomp] = true
 			end
 		end
 		versions
@@ -59,7 +56,7 @@ class Switch
 		path = [MVM::SETTING_DIR,MVM::INSTALLED].join("/")
 		open(path) do |f|
 			while line = f.gets
-				puts line.split(":").first[0..-8]
+				puts line
 			end
 		end
 	end

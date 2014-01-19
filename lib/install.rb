@@ -13,55 +13,51 @@ class Install
 			exit
 		end
 		version = args.first
-		wget(version)
-		unzip(version)
-		configure(version)
-		make(version)
-		make_install(version)
+		download_path = [MVM::SETTING_DIR,MVM::DOWNLOAD_DIR].join("/")
+		wget(version,download_path)
+		unzip(version,download_path)
+		working_dir = [download_path,version].join("/")
+		Dir.chdir(working_dir)
+		configure(version,download_path)
+		make
+		make_install
 		write_installed_version(version)
 	end
 
-	def self.wget(version)
+	def self.wget(version,download_path)
 		versions = get_available_versions
 		url = versions[version].chomp
 		if url.nil?
 			puts "This version is't exist."
 			exit
 		end
-		download_path = [MVM::SETTING_DIR,MVM::DOWNLOAD_DIR].join("/")
 		system("wget \"#{url}\" -P #{download_path}")
 	end
 
-	def self.unzip
-		download_path = [MVM::SETTING_DIR,MVM::DOWNLOAD_DIR].join("/")
+	def self.unzip(version,download_path)
 		path = [download_path,version+".tar.gz"].join("/")
 		system("tar zxvf #{path} -C #{download_path}")
 	end
 
-	def self.configure(version)
-		download_path = [MVM::SETTING_DIR,MVM::DOWNLOAD_DIR].join("/")
+	def self.configure(version,download_path)
 		path = [download_path,version].join("/")
 		install_path = [MVM::INSTALL_DIR,version].join("/")
 		system("#{path}/configure --prefix=#{install_path}")
 	end
 
-	def self.make(version)
-		download_path = [MVM::SETTING_DIR,MVM::DOWNLOAD_DIR].join("/")
-		path = [download_path,version].join("/")
-		system("#{path}/make")
+	def self.make
+		system("make")
 	end
 
-	def self.make_install(version)
-		download_path = [MVM::SETTING_DIR,MVM::DOWNLOAD_DIR].join("/")
-		path = [download_path,version].join("/")
-		system("#{path}/make install")
+	def self.make_install
+		system("make install")
 	end
 
 	def self.write_installed_version(version)
-		path = [MVM::SETTING_DIR,INSTALLED].join("/")
+		path = [MVM::SETTING_DIR,MVM::INSTALLED].join("/")
 		
-		open(path,"+w") do |f|
-			f.write(version)
+		open(path,"a") do |f|
+			f.write(version+"\n")
 		end
 	end
 

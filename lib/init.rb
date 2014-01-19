@@ -14,6 +14,6 @@ class Init
 		FileUtils.touch(versions_path)
 		FileUtils.touch(installed_path)
 		
-		system("echo 'export PATH=#{MVM::INSTALL_DIR}/bin:$PATH' >> ~/.bashrc ")
+		system("echo 'export PATH=#{MVM::INSTALL_DIR}/bin:$PATH' >> ~/.bash_profile ")
 	end
 end

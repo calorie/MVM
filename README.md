@@ -1,6 +1,8 @@
 # MVM
 
 MVM is MPICH Version Manager.
+Functions are only managing MPICH version.
+Please install requirements for building MPICH by yourself.
 
 ## Installation
 
@@ -16,7 +18,16 @@ Or install it yourself as:
 
     $ gem install mvm
 
+
+
+## Requirements
+	* wget
+	* make
+	* gzip
+	* tar
+
 ## Usage
+If install directory requires root permission, you must execute mvm by root or sudo.  
 	mvm --help
 
 ## Contributing
