@@ -1,4 +1,4 @@
-Copyright (c) 2014 yuuki-k
+Copyright (c) 2014 Yuki Konta
 
 MIT License
 
