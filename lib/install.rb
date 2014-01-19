@@ -1,5 +1,3 @@
-require "nokogiri"
-require "fileutils"
 require "mvm"
 
 class Install
@@ -54,8 +52,7 @@ class Install
 	end
 
 	def self.write_installed_version(version)
-		path = [MVM::SETTING_DIR,MVM::INSTALLED].join("/")
-		
+		path = [MVM::SETTING_DIR,MVM::INSTALLED].join("/")	
 		open(path,"a") do |f|
 			f.write(version+"\n")
 		end
