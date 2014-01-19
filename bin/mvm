@@ -1,0 +1,69 @@
+#!/usr/bin/env ruby
+
+$:.unshift File.dirname(__FILE__)+'../lib'
+
+require 'rubygems'
+require 'commander/import'
+require 'mvm/version'
+require 'init'
+require 'update'
+require 'install'
+
+program :version, MVM::VERSION
+program :description, 'MPICH Version Manager'
+ 
+command :init do |c|
+  c.syntax = 'mvm init <version>'
+  c.description = 'initialize mvm'
+  c.action do |args, options|
+	  Init.run(args,options)
+  end
+end
+
+command :install do |c|
+  c.syntax = 'mvm install <version>'
+  c.description = 'install mpich'
+  c.option '--list', 'display all available versions'
+  c.action do |args, options|
+	  Install.run(args,options)
+  end
+end
+
+# TODO
+command :uninstall do |c|
+  c.syntax = 'mvm uninstall <version>'
+  c.description = 'uninstall mpich'
+  c.option '--list', 'display all available versions'
+  c.action do |args, options|
+	  Uninstall.run(args.options)
+  end
+end
+
+command :switch do |c|
+  c.syntax = 'mvm switch <version>'
+  c.description = 'switch already installed version'
+  c.option '--list', 'display all available versions'
+  c.action do |args, options|
+	  Switch.run(args,options)
+  end
+end
+
+#TODO
+command :export do |c|
+  c.syntax = 'mvm export <version>'
+  c.description = 'export already installed version to other machine'
+  c.option '--list', 'display all available versions'
+  c.option '--hosts', 'machine file'
+  c.action do |args, options|
+	  Export.run(args,options)
+  end
+end
+
+command :update do |c|
+  c.syntax = 'mvm update'
+  c.description = 'update available versions'
+  c.action do |args, options|
+	  Update.run(args,options)
+  end
+end
+
