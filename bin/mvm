@@ -9,6 +9,9 @@ require 'init'
 require 'update'
 require 'install'
 require 'switch'
+require 'clean'
+require 'uninstall'
+require 'export'
 
 program :version, MVM::VERSION
 program :description, 'MPICH Version Manager'
@@ -68,3 +71,10 @@ command :update do |c|
   end
 end
 
+command :clean do |c|
+  c.syntax = 'mvm clean'
+  c.description = 'clean unneeded files'
+  c.action do |args, options|
+	  Clean.run(args,options)
+  end
+end
