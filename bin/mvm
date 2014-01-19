@@ -39,7 +39,7 @@ command :uninstall do |c|
   c.description = 'uninstall mpich'
   c.option '--list', 'display all available versions'
   c.action do |args, options|
-	  Uninstall.run(args.options)
+	  Uninstall.run(args,options)
   end
 end
 
