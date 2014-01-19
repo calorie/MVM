@@ -21,17 +21,24 @@ class Switch
 		switch(version)
 	end
 	
-	def self.switch(args.first)
+	def self.switch(version)
 		# remove symbolic link before create 
 		if File.exists?(MVM::SYMBOLIC_LINK)
 			FileUtils.rm(MVM::SYMBOLIC_LINK)
 		end
 		# create symbolic link
-		"ln -s /opt/mpich/#{} #{MVM::SYMBOLIC_LINK}"
+		"ln -s /opt/mpich/#{version}/bin #{MVM::SYMBOLIC_LINK}"
 	end
 
-	def self.exists?
-		false
+	def self.exists?(version)
+		is_exist = true
+		versions = get_available_versions
+		
+		if versions[version].nil?
+			is_exist = false
+		end
+
+		is_exist
 	end
 
 

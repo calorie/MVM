@@ -57,6 +57,14 @@ class Install
 		system("#{path}/make install")
 	end
 
+	def self.write_installed_version(version)
+		path = [MVM::SETTING_DIR,INSTALLED].join("/")
+		
+		open(path,"+w") do |f|
+			f.write(version)
+		end
+	end
+
 	def self.get_available_versions
 		versions = Hash.new
 		path = [MVM::SETTING_DIR,MVM::VERSIONS].join("/")
