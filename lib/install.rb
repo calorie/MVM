@@ -11,6 +11,13 @@ class Install
 			exit
 		end
 		version = args.first
+
+		versions = get_available_versions
+		unless versions.include?(version)
+			puts "Please set one of available versions."
+			exit
+		end
+
 		download_path = [MVM::SETTING_DIR,MVM::DOWNLOAD_DIR].join("/")
 		wget(version,download_path)
 		unzip(version,download_path)
@@ -29,7 +36,10 @@ class Install
 			puts "This version is't exist."
 			exit
 		end
-		system("wget \"#{url}\" -P #{download_path}")
+		path = [download_path,version+".tar.gz"].join("/")
+		unless File.exists?(path)
+			system("wget \"#{url}\" -P #{download_path}")
+		end
 	end
 
 	def self.unzip(version,download_path)
@@ -41,6 +51,10 @@ class Install
 		path = [download_path,version].join("/")
 		install_path = [MVM::INSTALL_DIR,version].join("/")
 		system("#{path}/configure --prefix=#{install_path}")
+		unless File.exists?("Makefile")
+			puts "configuring failed."
+			exit
+		end
 	end
 
 	def self.make
@@ -52,6 +66,12 @@ class Install
 	end
 
 	def self.write_installed_version(version)
+		install_path = [MVM::INSTALL_DIR,version].join("/")
+		unless File.exists?(install_path)
+			puts "Install failed."
+			exit
+		end
+
 		path = [MVM::SETTING_DIR,MVM::INSTALLED].join("/")	
 		open(path,"a") do |f|
 			f.write(version+"\n")
