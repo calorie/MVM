@@ -29,11 +29,8 @@ class Export
 		export(version,machines)
 	end
 
-	def self.export
+	def self.export(versions,machines)
 		p "under construction..."
-		#TODO file check at other machines
-		#TODO scp binary
-		#TODO file check at other machines
 	end
 
 	def self.read_machine_file(filename)

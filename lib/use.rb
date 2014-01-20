@@ -2,8 +2,24 @@ require "nokogiri"
 require "fileutils"
 require "mvm"
 
-class Switch
+class Use
 	def self.run(args,options)
+		if options.printdefault
+			print_default
+			exit
+		end
+
+		if options.default[:default]
+			version = options.default[:default]
+			set_default(version)
+			exit
+		end
+
+		if options.back
+			switch_to_default
+			exit
+		end
+
 		if options.list
 			print_list
 			exit
@@ -12,14 +28,6 @@ class Switch
 			puts "Please set verison you switch."
 			exit
 		end
-		machines = nil
-		if options.machinefile
-			machines = read_machine_file(options.machine)
-			if machines.nil?
-				puts "Reading machinefile failed."
-				exit
-			end
-		end
 
 		unless exists?(args.first)
 			puts "Please set already installed version."
@@ -27,13 +35,40 @@ class Switch
 		end
 		version = args.first
 		switch(version)
-		remote_switch(version,machines)
 	end
 
-	def self.remote_switch(version,machines)
-		#TODO ssh remote command
+	def self.print_default
+		default = [MVM::SETTING_DIR,MVM::DEFAULT].join("/")
+		open(default) do |f|
+			puts f.read.chomp
+		end
+	end
+	def self.set_default(version)
+		unless exists?(version)
+			puts "#{version} don't installed."
+			exit
+		end
+
+		default = [MVM::SETTING_DIR,MVM::DEFAULT].join("/")
+		open(default,"w") do |f|
+			f.write(version+"\n")
+		end
 	end
 	
+	def self.switch_to_default
+		default = [MVM::SETTING_DIR,MVM::DEFAULT].join("/")
+		default_version = nil
+		open(default) do |f|
+			default_version = f.read.chomp
+		end
+		if exists?(default_version)
+			switch(default_version)
+		else
+			puts "#{default_version} don't installed."
+			exit
+		end
+	end
+
 	def self.switch(version)
 		# remove symbolic link before create 
 		if File.symlink?(MVM::SYMBOLIC_LINK)
@@ -52,7 +87,6 @@ class Switch
 
 		is_exist
 	end
-
 
 	def self.get_available_versions
 		versions = Hash.new

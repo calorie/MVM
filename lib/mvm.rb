@@ -6,7 +6,8 @@ module MVM
 	SETTING_DIR   = File.expand_path("~/.mvm")
 	VERSIONS      = "versions"
 	INSTALLED     = "installed"
+	DEFAULT       = "default"
 	DOWNLOAD_DIR  = "download"
-	INSTALL_DIR   = "/opt/mpich"
+	INSTALL_DIR   = [SETTING_DIR,"bins"]
 	SYMBOLIC_LINK = [INSTALL_DIR,"bin"].join("/")
 end
