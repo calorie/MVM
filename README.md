@@ -1,7 +1,7 @@
 # MVM
 
 MVM is MPICH Version Manager.
-Functions are only managing MPICH version.
+Functions are only managing MPICH version.  
 Please install requirements for building MPICH by yourself.
 
 ## Installation
