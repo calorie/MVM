@@ -28,7 +28,7 @@ Or install it yourself as:
 	* build tools for c, c++ and fortran etc...
 
 ## Usage
-If install directory requires root permission, you must execute mvm by root or sudo.  
+You must execute mvm by root or sudo.  
 
 	mvm --help
 

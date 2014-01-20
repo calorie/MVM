@@ -2,44 +2,51 @@ require "mvm"
 
 class Export
 	def self.run(args,options)
-		p "under construction..."
-		exit
 		if options.list
 			print_list
 			exit
 		end
+
+		machines = nil
+		if options.machine
+			machines = read_machine_file(options.machine)
+			if machines.nil
+				puts "Reading machinefile failed."
+				exit
+			end
+		else
+			puts "Please set --machinefile option."
+		end
+
 		if args.first.nil?
-			puts "Please set verison you install."
+			puts "Please set already installed verison."
 			exit
 		end
+
 		version = args.first
-		download_path = [MVM::SETTING_DIR,MVM::DOWNLOAD_DIR].join("/")
-		write_installed_version(version)
+
+		export(version,machines)
 	end
 
-	def self.write_installed_version(version)
-		path = [MVM::SETTING_DIR,MVM::INSTALLED].join("/")
-		
-		open(path,"a") do |f|
-			f.write(version+"\n")
-		end
+	def self.export
+		p "under construction..."
+		#TODO file check at other machines
+		#TODO scp binary
+		#TODO file check at other machines
 	end
 
-	def self.get_available_versions
-		versions = Hash.new
-		path = [MVM::SETTING_DIR,MVM::VERSIONS].join("/")
-		open(path) do |f|
+	def self.read_machine_file(filename)
+		machines = Array.new
+		open(filename) do |f|
 			while line = f.gets
-				key = line.split(":").first[0..-8]
-				value = line.split(":")[1..-1].join(":")
-				versions[key] = value
+				machine << line.chomp
 			end
 		end
-		versions
+		machines
 	end
 
 	def self.print_list
-		path = [MVM::SETTING_DIR,MVM::VERSIONS].join("/")
+		path = [MVM::SETTING_DIR,MVM::INSTALLED].join("/")
 		open(path) do |f|
 			while line = f.gets
 				puts line.split(":").first[0..-8]
