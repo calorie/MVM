@@ -23,7 +23,7 @@ class Switch
 	
 	def self.switch(version)
 		# remove symbolic link before create 
-		if File.exists?(MVM::SYMBOLIC_LINK)
+		if File.symlink?(MVM::SYMBOLIC_LINK)
 			FileUtils.rm(MVM::SYMBOLIC_LINK)
 		end
 		# create symbolic link
