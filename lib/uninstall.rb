@@ -2,8 +2,6 @@ require "mvm"
 
 class Uninstall
 	def self.run(args,options)
-		p "under construction..."
-		exit
 		if options.list
 			print_list
 			exit
@@ -12,36 +10,62 @@ class Uninstall
 			puts "Please set verison you uninstall."
 			exit
 		end
+
 		version = args.first
-		download_path = [MVM::SETTING_DIR,MVM::DOWNLOAD_DIR].join("/")
+
+		unless exists?(version)
+			puts "The version you specified don't installed."
+			exit
+		end
+
+		uninstall(version)
+		remove_installed_version(version)
 	end
 
-	def self.write_installed_version(version)
+	def self.uninstall(version)
+		install_path = [MVM::INSTALL_DIR,version].join("/")
+		system("rm -r #{install_path}")
+	end
+
+	def self.remove_installed_version(version)
 		path = [MVM::SETTING_DIR,MVM::INSTALLED].join("/")
 		
-		open(path,"a") do |f|
-			f.write(version+"\n")
-		end
-	end
-
-	def self.get_available_versions
-		versions = Hash.new
-		path = [MVM::SETTING_DIR,MVM::VERSIONS].join("/")
-		open(path) do |f|
+		versions = Array.new
+		open(path,"r") do |f|
 			while line = f.gets
-				key = line.split(":").first[0..-8]
-				value = line.split(":")[1..-1].join(":")
-				versions[key] = value
+				versions << line.chomp
 			end
 		end
-		versions
+		
+		versions.delete(version)
+
+		open(path,"w") do |f|
+			versions.each do |e|
+				f.write(e+"\n")
+			end
+		end
+
 	end
 
-	def self.print_list
-		path = [MVM::SETTING_DIR,MVM::VERSIONS].join("/")
+	def self.exists?(version)
+		is_exist = false
+		path = [MVM::SETTING_DIR,MVM::INSTALLED].join("/")
 		open(path) do |f|
 			while line = f.gets
-				puts line.split(":").first[0..-8]
+				if version == line.chomp
+					is_exist = true
+					break
+				end
+			end
+		end
+		is_exist
+	end
+	
+	def self.print_list
+		path = [MVM::SETTING_DIR,MVM::INSTALLED].join("/")
+		open(path) do |f|
+			while line = f.gets
+				puts line
 			end
 		end
 	end
