@@ -8,10 +8,13 @@ class Init
 
 		versions_path = [MVM::SETTING_DIR,MVM::VERSIONS].join("/")
 		installed_path = [MVM::SETTING_DIR,MVM::INSTALLED].join("/")
+		default_path = [MVM::SETTING_DIR,MVM::DEFAULT].join("/")
 
 		FileUtils.touch(versions_path)
 		FileUtils.touch(installed_path)
-		
-		system("echo 'export PATH=#{MVM::INSTALL_DIR}/bin:$PATH' >> ~/.bash_profile ")
+		FileUtils.touch(default_path)
+
+		puts "Please input the following command."
+		puts "echo 'export PATH=#{SYMBOLIC_LINK}:$PATH' >> /etc/profile"
 	end
 end
