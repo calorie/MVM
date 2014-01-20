@@ -12,6 +12,14 @@ class Switch
 			puts "Please set verison you switch."
 			exit
 		end
+		machines = nil
+		if options.machinefile
+			machines = read_machine_file(options.machine)
+			if machines.nil?
+				puts "Reading machinefile failed."
+				exit
+			end
+		end
 
 		unless exists?(args.first)
 			puts "Please set already installed version."
@@ -19,6 +27,11 @@ class Switch
 		end
 		version = args.first
 		switch(version)
+		remote_switch(version,machines)
+	end
+
+	def self.remote_switch(version,machines)
+		#TODO ssh remote command
 	end
 	
 	def self.switch(version)

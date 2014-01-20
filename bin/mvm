@@ -38,15 +38,18 @@ command :uninstall do |c|
   c.syntax = 'mvm uninstall <version>'
   c.description = 'uninstall mpich'
   c.option '--list', 'display all available versions'
+  c.option '--machinefile', 'other machines of targets for uninstall'
   c.action do |args, options|
 	  Uninstall.run(args,options)
   end
 end
 
+#TODO
 command :switch do |c|
   c.syntax = 'mvm switch <version>'
   c.description = 'switch already installed version'
   c.option '--list', 'display all available versions'
+  c.option '--machinefile', 'other machines of targets for switch'
   c.action do |args, options|
 	  Switch.run(args,options)
   end
@@ -57,7 +60,7 @@ command :export do |c|
   c.syntax = 'mvm export <version>'
   c.description = 'export already installed version to other machine'
   c.option '--list', 'display all available versions'
-  c.option '--hosts', 'machine file'
+  c.option '--machinefile', 'other machines of targets for export'
   c.action do |args, options|
 	  Export.run(args,options)
   end

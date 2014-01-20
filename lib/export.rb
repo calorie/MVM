@@ -10,12 +10,13 @@ class Export
 		machines = nil
 		if options.machine
 			machines = read_machine_file(options.machine)
-			if machines.nil
+			if machines.nil?
 				puts "Reading machinefile failed."
 				exit
 			end
 		else
 			puts "Please set --machinefile option."
+			exit
 		end
 
 		if args.first.nil?
