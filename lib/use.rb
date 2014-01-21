@@ -75,7 +75,11 @@ class Use
 			FileUtils.rm(MVM::SYMBOLIC_LINK)
 		end
 		# create symbolic link
-		system("ln -s /opt/mpich/#{version}/bin #{MVM::SYMBOLIC_LINK}")
+		path = open(MVM::INSTALL_PATH) do |f| f.read.chomp end
+		if path == ""
+			path = MVM::INSTALL_DIR
+		end
+		system("ln -s #{path}/#{version}/bin #{MVM::SYMBOLIC_LINK}")
 	end
 
 	def self.exists?(version)

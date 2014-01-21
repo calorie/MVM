@@ -23,20 +23,25 @@ class Uninstall
 	end
 
 	def self.uninstall(version)
-		install_path = [MVM::INSTALL_DIR,version].join("/")
+		install_path = open(MVM::INSTALL_PATH) do |f| f.read.chomp end
+		if install_path == ""
+			install_path = [MVM::INSTALL_DIR,version].join("/")
+		else
+			install_path = [install_path,version].join("/")
+		end
 		system("rm -r #{install_path}")
 	end
 
 	def self.remove_installed_version(version)
 		path = [MVM::SETTING_DIR,MVM::INSTALLED].join("/")
-		
+
 		versions = Array.new
 		open(path,"r") do |f|
 			while line = f.gets
 				versions << line.chomp
 			end
 		end
-		
+
 		versions.delete(version)
 
 		open(path,"w") do |f|
@@ -60,7 +65,7 @@ class Uninstall
 		end
 		is_exist
 	end
-	
+
 	def self.print_list
 		path = [MVM::SETTING_DIR,MVM::INSTALLED].join("/")
 		open(path) do |f|

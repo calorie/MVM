@@ -49,7 +49,13 @@ class Install
 
 	def self.configure(version,download_path)
 		path = [download_path,version].join("/")
-		install_path = [MVM::INSTALL_DIR,version].join("/")
+		install_path = open(MVM::INSTALL_PATH) do |f| f.read.chomp end
+		if install_path == ""
+			install_path = [MVM::INSTALL_DIR,version].join("/") 
+		else
+			install_path = [install_path,version].join("/")
+		end
+
 		system("#{path}/configure --prefix=#{install_path}")
 		unless File.exists?("Makefile")
 			puts "configuring failed."
@@ -66,7 +72,13 @@ class Install
 	end
 
 	def self.write_installed_version(version)
-		install_path = [MVM::INSTALL_DIR,version].join("/")
+		install_path = open(MVM::INSTALL_PATH) do |f| f.read.chomp end
+		if install_path == ""
+			install_path = [MVM::INSTALL_DIR,version].join("/") 
+		else
+			install_path = [install_path,version].join("/")
+		end
+
 		unless File.exists?(install_path)
 			puts "Install failed."
 			exit

@@ -19,6 +19,7 @@ program :description, 'MPICH Version Manager'
 command :init do |c|
   c.syntax = 'mvm init <version>'
   c.description = 'initialize mvm'
+  c.option '--installpath PATH', 'fix install path'
   c.action do |args, options|
 	  Init.run(args,options)
   end
