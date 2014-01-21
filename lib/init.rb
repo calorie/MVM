@@ -11,11 +11,13 @@ class Init
 		installed_path = [MVM::SETTING_DIR,MVM::INSTALLED].join("/")
 		default_path = [MVM::SETTING_DIR,MVM::DEFAULT].join("/")
 		install_dir  = MVM::INSTALL_DIR
+		install_path = MVM::INSTALL_PATH
 
 		FileUtils.touch(versions_path)
 		FileUtils.touch(installed_path)
 		FileUtils.touch(default_path)
 		FileUtils.touch(install_dir)
+		FileUtils.touch(install_path)
 
 		if options.installpath
 			path = options.installpath
