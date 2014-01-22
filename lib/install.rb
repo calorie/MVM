@@ -18,6 +18,11 @@ class Install
       exit
     end
 
+    if installed?(version)
+      puts "#{version} is already installed."
+      exit
+    end
+
     download_path = [MVM::SETTING_DIR,MVM::DOWNLOAD_DIR].join("/")
     wget(version,download_path)
     unzip(version,download_path)
@@ -111,4 +116,18 @@ class Install
       end
     end
   end
+
+  def self.installed?(version)
+    path = [MVM::SETTING_DIR,MVM::INSTALLED].join("/")
+    is_installed = true
+    open(path) do |f|
+      while line = f.gets
+        if version == line.chomp
+          is_installed == false
+        end
+      end
+    end
+    is_installed
+  end
+
 end
