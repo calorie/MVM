@@ -27,6 +27,9 @@ class Init
     end
 
     puts "Please input the following command."
+    puts "--- if all user use mvm ---"
     puts "echo 'export PATH=#{MVM::SYMBOLIC_LINK}:$PATH' >> /etc/profile"
+    puts "--- if you use mvm ---"
+    puts "echo 'export PATH=#{MVM::SYMBOLIC_LINK}:$PATH' >> ~/.bashrc"
   end
 end
