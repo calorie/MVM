@@ -119,11 +119,12 @@ class Install
 
   def self.installed?(version)
     path = [MVM::SETTING_DIR,MVM::INSTALLED].join("/")
-    is_installed = true
+    is_installed = false
     open(path) do |f|
       while line = f.gets
         if version == line.chomp
-          is_installed == false
+          is_installed = true
+          break
         end
       end
     end
