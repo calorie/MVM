@@ -1,8 +1,4 @@
-#$:.unshift File.join(File.dirname(__FILE__), '..', 'test')
-#ENV["HOME"] = "____test" # change home directory for test
-
-require "rspec"
-require "mvm"
+require "spec_helper"
 require "init"
 
 describe "mvm commands" do
@@ -14,30 +10,28 @@ describe "mvm commands" do
 
       # TODO file and directory check
       it "make needed directories and files" do
-        File.exists?(MVM::SETTING_DIR).should be_true
+        expect(File.exists?(MVM::SETTING_DIR)).to be_true
       end
 
       after do
-        `rm -r #{ENV["HOME"]}`
+        `rm -r #{ENV['MVM_HOME']}`
       end
     end
 
     context "with --installpath" do
       before do
-        `bundle exec mvm init --installpath=#{File.join(ENV["HOME"],"test")}`
+        `bundle exec mvm init --installpath=#{File.join(ENV['MVM_HOME'],"test")}`
       end
 
       # TODO file and directory check
       it "make needed directories and files" do
-        File.exist?(MVM::SETTING_DIR).should be_true
+        expect(File.exist?(MVM::SETTING_DIR)).to be_true
       end
 
       after do
-        `rm -r #{ENV["HOME"]}`
+        `rm -r #{ENV['MVM_HOME']}`
       end
     end
 
   end
 end
-
-
