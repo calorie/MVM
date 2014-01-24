@@ -2,7 +2,7 @@ require "mvm/version"
 
 module MVM
 	# Only set path.
-	SETTING_DIR   = File.expand_path(ENV["HOME"])
+	SETTING_DIR   = File.join(ENV["HOME"], ".mvm")
 	VERSIONS      = "versions"
 	INSTALLED     = "installed"
 	DEFAULT       = "default"
