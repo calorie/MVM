@@ -23,10 +23,10 @@ class Install
       exit
     end
 
-    download_path = [MVM::SETTING_DIR,MVM::DOWNLOAD_DIR].join("/")
+    download_path = File.join(MVM::SETTING_DIR, MVM::DOWNLOAD_DIR)
     wget(version,download_path)
     unzip(version,download_path)
-    working_dir = [download_path,version].join("/")
+    working_dir = File.join(download_path, version)
     Dir.chdir(working_dir)
     configure(version,download_path)
     make
@@ -41,24 +41,24 @@ class Install
       puts "This version is't exist."
       exit
     end
-    path = [download_path,version+".tar.gz"].join("/")
+    path = File.join(download_path, version + '.tar.gz')
     unless File.exists?(path)
       system("wget \"#{url}\" -P #{download_path}")
     end
   end
 
   def self.unzip(version,download_path)
-    path = [download_path,version+".tar.gz"].join("/")
+    path = File.join(download_path, version + '.tar.gz')
     system("tar zxvf #{path} -C #{download_path}")
   end
 
   def self.configure(version,download_path)
-    path = [download_path,version].join("/")
+    path = File.join(download_path, version)
     install_path = open(MVM::INSTALL_PATH) do |f| f.read.chomp end
     if install_path == ""
-      install_path = [MVM::INSTALL_DIR,version].join("/") 
+      install_path = File.join(MVM::INSTALL_DIR, version)
     else
-      install_path = [install_path,version].join("/")
+      install_path = File.join(install_path, version)
     end
 
     system("#{path}/configure --prefix=#{install_path}")
@@ -79,9 +79,9 @@ class Install
   def self.write_installed_version(version)
     install_path = open(MVM::INSTALL_PATH) do |f| f.read.chomp end
     if install_path == ""
-      install_path = [MVM::INSTALL_DIR,version].join("/") 
+      install_path = File.join(MVM::INSTALL_DIR, version)
     else
-      install_path = [install_path,version].join("/")
+      install_path = File.join(install_path, version)
     end
 
     unless File.exists?(install_path)
@@ -89,7 +89,7 @@ class Install
       exit
     end
 
-    path = [MVM::SETTING_DIR,MVM::INSTALLED].join("/")	
+    path = File.join(MVM::SETTING_DIR, MVM::INSTALLED)
     open(path,"a") do |f|
       f.write(version+"\n")
     end
@@ -97,7 +97,7 @@ class Install
 
   def self.get_available_versions
     versions = Hash.new
-    path = [MVM::SETTING_DIR,MVM::VERSIONS].join("/")
+    path = File.join(MVM::SETTING_DIR, MVM::VERSIONS)
     open(path) do |f|
       while line = f.gets
         key = line.split(":").first[0..-8]
@@ -109,7 +109,7 @@ class Install
   end
 
   def self.print_list
-    path = [MVM::SETTING_DIR,MVM::VERSIONS].join("/")
+    path = File.join(MVM::SETTING_DIR, MVM::VERSIONS)
     open(path) do |f|
       while line = f.gets
         puts line.split(":").first[0..-8]
@@ -118,7 +118,7 @@ class Install
   end
 
   def self.installed?(version)
-    path = [MVM::SETTING_DIR,MVM::INSTALLED].join("/")
+    path = File.join(MVM::SETTING_DIR, MVM::INSTALLED)
     is_installed = false
     open(path) do |f|
       while line = f.gets

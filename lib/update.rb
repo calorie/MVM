@@ -6,7 +6,7 @@ class Update
 	URL = "http://www.mpich.org/static/downloads/"
 	def self.run(args,options)
 		file_url = get_url
-		path = [MVM::SETTING_DIR,MVM::VERSIONS].join("/")
+		path = File.join(MVM::SETTING_DIR, MVM::VERSIONS)
 		open(path,"w") do |f|
 			file_url.each do |key,value|
 				f.write "#{key}:#{value}\n"

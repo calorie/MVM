@@ -38,7 +38,7 @@ class Use
 	end
 
 	def self.print_default
-		default = [MVM::SETTING_DIR,MVM::DEFAULT].join("/")
+		default = File.join(MVM::SETTING_DIR, MVM::DEFAULT)
 		open(default) do |f|
 			puts f.read.chomp
 		end
@@ -49,14 +49,14 @@ class Use
 			exit
 		end
 
-		default = [MVM::SETTING_DIR,MVM::DEFAULT].join("/")
+		default = File.join(MVM::SETTING_DIR, MVM::DEFAULT)
 		open(default,"w") do |f|
 			f.write(version+"\n")
 		end
 	end
 	
 	def self.switch_to_default
-		default = [MVM::SETTING_DIR,MVM::DEFAULT].join("/")
+		default = File.join(MVM::SETTING_DIR, MVM::DEFAULT)
 		default_version = nil
 		open(default) do |f|
 			default_version = f.read.chomp
@@ -94,7 +94,7 @@ class Use
 
 	def self.get_available_versions
 		versions = Hash.new
-		path = [MVM::SETTING_DIR,MVM::INSTALLED].join("/")
+		path = File.join(MVM::SETTING_DIR, MVM::INSTALLED)
 		open(path) do |f|
 			while line = f.gets
 				versions[line.chomp] = true
@@ -104,7 +104,7 @@ class Use
 	end
 
 	def self.print_list
-		path = [MVM::SETTING_DIR,MVM::INSTALLED].join("/")
+		path = File.join(MVM::SETTING_DIR, MVM::INSTALLED)
 		open(path) do |f|
 			while line = f.gets
 				puts line
