@@ -56,7 +56,7 @@ class Install
     path = [download_path,version].join("/")
     install_path = open(MVM::INSTALL_PATH) do |f| f.read.chomp end
     if install_path == ""
-      install_path = [MVM::INSTALL_DIR,version].join("/") 
+      install_path = [MVM::INSTALL_DIR,version].join("/")
     else
       install_path = [install_path,version].join("/")
     end
@@ -79,7 +79,7 @@ class Install
   def self.write_installed_version(version)
     install_path = open(MVM::INSTALL_PATH) do |f| f.read.chomp end
     if install_path == ""
-      install_path = [MVM::INSTALL_DIR,version].join("/") 
+      install_path = [MVM::INSTALL_DIR,version].join("/")
     else
       install_path = [install_path,version].join("/")
     end
@@ -89,7 +89,7 @@ class Install
       exit
     end
 
-    path = [MVM::SETTING_DIR,MVM::INSTALLED].join("/")	
+    path = [MVM::SETTING_DIR,MVM::INSTALLED].join("/")
     open(path,"a") do |f|
       f.write(version+"\n")
     end
