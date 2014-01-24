@@ -1,6 +1,6 @@
 # MVM
 
-MVM is MPICH Version Manager.
+MVM is MPICH Version Manager.  
 Functions are only managing MPICH version.  
 Please install requirements for building MPICH by yourself.
 
@@ -25,7 +25,7 @@ Or install it yourself as:
 	* make
 	* gzip
 	* tar
-	* build tools for c, c++ and fortran etc...
+	* compiler for c, c++ and fortran etc...
 
 ## Usage
 You must execute mvm by root or sudo.  
@@ -39,3 +39,7 @@ You must execute mvm by root or sudo.
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
 5. Create new Pull Request
+
+## Donation
+If you don't mind, please donate by Litecoin  
+LfmjChD1vSEQiWe2VVLCeGUEz9Zqkuc9vh
