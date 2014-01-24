@@ -37,37 +37,38 @@ class Use
     switch(version)
   end
 
-  def self.print_default
-    default = [MVM::SETTING_DIR,MVM::DEFAULT].join("/")
-    open(default) do |f|
-      puts f.read.chomp
-    end
-  end
-  def self.set_default(version)
-    unless exists?(version)
-      puts "#{version} don't installed."
-      exit
-    end
+	def self.print_default
+		default = File.join(MVM::SETTING_DIR, MVM::DEFAULT)
+		open(default) do |f|
+			puts f.read.chomp
+		end
+	end
 
-    default = [MVM::SETTING_DIR,MVM::DEFAULT].join("/")
-    open(default,"w") do |f|
-      f.write(version+"\n")
-    end
-  end
+	def self.set_default(version)
+		unless exists?(version)
+			puts "#{version} don't installed."
+			exit
+		end
 
-  def self.switch_to_default
-    default = [MVM::SETTING_DIR,MVM::DEFAULT].join("/")
-    default_version = nil
-    open(default) do |f|
-      default_version = f.read.chomp
-    end
-    if exists?(default_version)
-      switch(default_version)
-    else
-      puts "#{default_version} don't installed."
-      exit
-    end
-  end
+		default = File.join(MVM::SETTING_DIR, MVM::DEFAULT)
+		open(default,"w") do |f|
+			f.write(version+"\n")
+		end
+	end
+	
+	def self.switch_to_default
+		default = File.join(MVM::SETTING_DIR, MVM::DEFAULT)
+		default_version = nil
+		open(default) do |f|
+			default_version = f.read.chomp
+		end
+		if exists?(default_version)
+			switch(default_version)
+		else
+			puts "#{default_version} don't installed."
+			exit
+		end
+	end
 
   def self.switch(version)
     # remove symbolic link before create
@@ -92,23 +93,24 @@ class Use
     is_exist
   end
 
-  def self.get_available_versions
-    versions = Hash.new
-    path = [MVM::SETTING_DIR,MVM::INSTALLED].join("/")
-    open(path) do |f|
-      while line = f.gets
-        versions[line.chomp] = true
-      end
-    end
-    versions
-  end
+	def self.get_available_versions
+		versions = Hash.new
+		path = File.join(MVM::SETTING_DIR, MVM::INSTALLED)
+		open(path) do |f|
+			while line = f.gets
+				versions[line.chomp] = true
+			end
+		end
+		versions
+	end
 
-  def self.print_list
-    path = [MVM::SETTING_DIR,MVM::INSTALLED].join("/")
-    open(path) do |f|
-      while line = f.gets
-        puts line
-      end
-    end
-  end
+	def self.print_list
+		path = File.join(MVM::SETTING_DIR, MVM::INSTALLED)
+		open(path) do |f|
+			while line = f.gets
+				puts line
+			end
+		end
+	end
+
 end

@@ -3,16 +3,16 @@ require "nokogiri"
 require "mvm"
 
 class Update
-  URL = "http://www.mpich.org/static/downloads/"
-  def self.run(args,options)
-    file_url = get_url
-    path = [MVM::SETTING_DIR,MVM::VERSIONS].join("/")
-    open(path,"w") do |f|
-      file_url.each do |key,value|
-        f.write "#{key}:#{value}\n"
-      end
-    end
-  end
+	URL = "http://www.mpich.org/static/downloads/"
+	def self.run(args,options)
+		file_url = get_url
+		path = File.join(MVM::SETTING_DIR, MVM::VERSIONS)
+		open(path,"w") do |f|
+			file_url.each do |key,value|
+				f.write "#{key}:#{value}\n"
+			end
+		end
+	end
 
   def self.get_url
     text = open(URL) do |f| f.read end
