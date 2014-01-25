@@ -1,17 +1,18 @@
 require 'mvm'
 
 class Install
-  def self.run(args,options)
+  def self.run(args, options)
     if options.list
       print_list
       exit
     end
+
     if args.first.nil?
       puts 'Please set verison you install.'
       exit
     end
-    version = args.first
 
+    version = args.first
     versions = get_available_versions
     unless versions.include?(version)
       puts 'Please set one of available versions.'
@@ -24,36 +25,38 @@ class Install
     end
 
     download_path = File.join(MVM::SETTING_DIR, MVM::DOWNLOAD_DIR)
-    wget(version,download_path)
-    unzip(version,download_path)
+    wget(version, download_path)
+    unzip(version, download_path)
     working_dir = File.join(download_path, version)
     Dir.chdir(working_dir) do
-      configure(version,download_path)
+      configure(version, download_path)
       make
       make_install
       write_installed_version(version)
     end
   end
 
-  def self.wget(version,download_path)
+  def self.wget(version, download_path)
     versions = get_available_versions
     url = versions[version].chomp
+    
     if url.nil?
       puts "This version is't exist."
       exit
     end
+
     path = File.join(download_path, version + '.tar.gz')
     unless File.exists?(path)
       system("wget \"#{url}\" -P #{download_path}")
     end
   end
 
-  def self.unzip(version,download_path)
+  def self.unzip(version, download_path)
     path = File.join(download_path, version + '.tar.gz')
     system("tar zxvf #{path} -C #{download_path}")
   end
 
-  def self.configure(version,download_path)
+  def self.configure(version, download_path)
     path = File.join(download_path, version)
     install_path = open(MVM::INSTALL_PATH) do |f| f.read.chomp end
     if install_path == ''

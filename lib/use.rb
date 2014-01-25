@@ -3,7 +3,7 @@ require 'fileutils'
 require 'mvm'
 
 class Use
-  def self.run(args,options)
+  def self.run(args, options)
     if options.printdefault
       print_default
       exit

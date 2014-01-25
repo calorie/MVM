@@ -20,7 +20,7 @@ command :init do |c|
   c.description = 'initialize mvm'
   c.option '--installpath PATH', 'fix install path'
   c.action do |args, options|
-    Init.run(args,options)
+    Init.run(args, options)
   end
 end
 
@@ -29,7 +29,7 @@ command :install do |c|
   c.description = 'install mpich'
   c.option '--list', 'display all available versions'
   c.action do |args, options|
-    Install.run(args,options)
+    Install.run(args, options)
   end
 end
 
@@ -38,7 +38,7 @@ command :uninstall do |c|
   c.description = 'uninstall mpich'
   c.option '--list', 'display all available versions'
   c.action do |args, options|
-    Uninstall.run(args,options)
+    Uninstall.run(args, options)
   end
 end
 
@@ -51,7 +51,7 @@ command :use do |c|
   c.option '--back', 'use default version'
 
   c.action do |args, options|
-    Use.run(args,options)
+    Use.run(args, options)
   end
 end
 
@@ -59,7 +59,7 @@ command :update do |c|
   c.syntax = 'mvm update'
   c.description = 'update available versions'
   c.action do |args, options|
-    Update.run(args,options)
+    Update.run(args, options)
   end
 end
 
@@ -67,6 +67,6 @@ command :clean do |c|
   c.syntax = 'mvm clean'
   c.description = 'clean unneeded files'
   c.action do |args, options|
-    Clean.run(args,options)
+    Clean.run(args, options)
   end
 end

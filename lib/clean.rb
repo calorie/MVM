@@ -1,7 +1,7 @@
 require 'mvm'
 
 class Clean
-  def self.run(args,options)
+  def self.run(args, options)
     download_path = File.join(MVM::SETTING_DIR, MVM::DOWNLOAD_DIR)
     Dir.chdir(download_path) { clean }
   end
