@@ -27,11 +27,12 @@ class Install
     wget(version,download_path)
     unzip(version,download_path)
     working_dir = File.join(download_path, version)
-    Dir.chdir(working_dir)
-    configure(version,download_path)
-    make
-    make_install
-    write_installed_version(version)
+    Dir.chdir(working_dir) do
+      configure(version,download_path)
+      make
+      make_install
+      write_installed_version(version)
+    end
   end
 
   def self.wget(version,download_path)
