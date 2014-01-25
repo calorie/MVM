@@ -1,4 +1,4 @@
-require "mvm"
+require 'mvm'
 
 class Install
   def self.run(args,options)
@@ -7,14 +7,14 @@ class Install
       exit
     end
     if args.first.nil?
-      puts "Please set verison you install."
+      puts 'Please set verison you install.'
       exit
     end
     version = args.first
 
     versions = get_available_versions
     unless versions.include?(version)
-      puts "Please set one of available versions."
+      puts 'Please set one of available versions.'
       exit
     end
 
@@ -56,43 +56,43 @@ class Install
   def self.configure(version,download_path)
     path = File.join(download_path, version)
     install_path = open(MVM::INSTALL_PATH) do |f| f.read.chomp end
-    if install_path == ""
+    if install_path == ''
       install_path = File.join(MVM::INSTALL_DIR, version)
     else
       install_path = File.join(install_path, version)
     end
 
     system("#{path}/configure --prefix=#{install_path}")
-    unless File.exists?("Makefile")
-      puts "configuring failed."
+    unless File.exists?('Makefile')
+      puts 'configuring failed.'
       exit
     end
   end
 
   def self.make
-    system("make")
+    system('make')
   end
 
   def self.make_install
-    system("make install")
+    system('make install')
   end
 
   def self.write_installed_version(version)
     install_path = open(MVM::INSTALL_PATH) do |f| f.read.chomp end
-    if install_path == ""
+    if install_path == ''
       install_path = File.join(MVM::INSTALL_DIR, version)
     else
       install_path = File.join(install_path, version)
     end
 
     unless File.exists?(install_path)
-      puts "Install failed."
+      puts 'Install failed.'
       exit
     end
 
     path = File.join(MVM::SETTING_DIR, MVM::INSTALLED)
-    open(path,"a") do |f|
-      f.write(version+"\n")
+    open(path, 'a') do |f|
+      f.write(version + "\n")
     end
   end
 
@@ -101,8 +101,8 @@ class Install
     path = File.join(MVM::SETTING_DIR, MVM::VERSIONS)
     open(path) do |f|
       while line = f.gets
-        key = line.split(":").first[0..-8]
-        value = line.split(":")[1..-1].join(":")
+        key = line.split(':').first[0..-8]
+        value = line.split(':')[1..-1].join(':')
         versions[key] = value
       end
     end
@@ -113,7 +113,7 @@ class Install
     path = File.join(MVM::SETTING_DIR, MVM::VERSIONS)
     open(path) do |f|
       while line = f.gets
-        puts line.split(":").first[0..-8]
+        puts line.split(':').first[0..-8]
       end
     end
   end

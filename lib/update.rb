@@ -1,13 +1,13 @@
-require "open-uri"
-require "nokogiri"
-require "mvm"
+require 'open-uri'
+require 'nokogiri'
+require 'mvm'
 
 class Update
-	URL = "http://www.mpich.org/static/downloads/"
+	URL = 'http://www.mpich.org/static/downloads/'
 	def self.run(args,options)
 		file_url = get_url
 		path = File.join(MVM::SETTING_DIR, MVM::VERSIONS)
-		open(path,"w") do |f|
+		open(path, 'w') do |f|
 			file_url.each do |key,value|
 				f.write "#{key}:#{value}\n"
 			end
@@ -50,7 +50,7 @@ class Update
       end
       print "complete!\n"
     end
-    puts "complete all!"
+    puts 'complete all!'
     file_url
   end
 
