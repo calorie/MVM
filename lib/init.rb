@@ -1,5 +1,5 @@
-require "fileutils"
-require "mvm"
+require 'fileutils'
+require 'mvm'
 
 class Init
   def self.run(args,options)
@@ -21,15 +21,15 @@ class Init
 
     if options.installpath
       path = options.installpath
-      open(MVM::INSTALL_PATH,"w") do |f|
-        f.write(path+"\n")
+      open(MVM::INSTALL_PATH, 'w') do |f|
+        f.write(path + "\n")
       end
     end
 
-    puts "Please input the following command."
-    puts "--- if all user use mvm ---"
+    puts 'Please input the following command.'
+    puts '--- if all user use mvm ---'
     puts "echo 'export PATH=#{MVM::SYMBOLIC_LINK}:$PATH' >> /etc/profile"
-    puts "--- if you use mvm ---"
+    puts '--- if you use mvm ---'
     puts "echo 'export PATH=#{MVM::SYMBOLIC_LINK}:$PATH' >> ~/.bashrc"
   end
 end

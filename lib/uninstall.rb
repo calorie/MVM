@@ -1,4 +1,4 @@
-require "mvm"
+require 'mvm'
 
 class Uninstall
   def self.run(args,options)
@@ -7,14 +7,14 @@ class Uninstall
       exit
     end
     if args.first.nil?
-      puts "Please set verison you uninstall."
+      puts 'Please set verison you uninstall.'
       exit
     end
 
     version = args.first
 
     unless exists?(version)
-      puts "The version you specified don't installed."
+      puts 'The version you specified don't installed.'
       exit
     end
 
@@ -24,7 +24,7 @@ class Uninstall
 
   def self.uninstall(version)
     install_path = open(MVM::INSTALL_PATH) do |f| f.read.chomp end
-    if install_path == ""
+    if install_path == ''
       install_path = File.join(MVM::INSTALL_DIR, version)
     else
       install_path = File.join(install_path, version)
@@ -36,7 +36,7 @@ class Uninstall
     path = File.join(MVM::SETTING_DIR, MVM::INSTALLED)
 
     versions = Array.new
-    open(path,"r") do |f|
+    open(path, 'r') do |f|
       while line = f.gets
         versions << line.chomp
       end
@@ -44,9 +44,9 @@ class Uninstall
 
     versions.delete(version)
 
-    open(path,"w") do |f|
+    open(path, 'w') do |f|
       versions.each do |e|
-        f.write(e+"\n")
+        f.write(e + "\n")
       end
     end
 

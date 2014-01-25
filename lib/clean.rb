@@ -1,4 +1,4 @@
-require "mvm"
+require 'mvm'
 
 class Clean
   def self.run(args,options)
@@ -8,9 +8,9 @@ class Clean
   end
 
   def self.clean
-    files = Dir.glob("*")
-    files.delete(".")
-    files.delete("..")
+    files = Dir.glob('*')
+    files.delete('.')
+    files.delete('..')
     files.each do |f|
       if File.directory?(f)
         system("rm -r #{f}")

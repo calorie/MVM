@@ -1,6 +1,6 @@
-require "nokogiri"
-require "fileutils"
-require "mvm"
+require 'nokogiri'
+require 'fileutils'
+require 'mvm'
 
 class Use
   def self.run(args,options)
@@ -25,12 +25,12 @@ class Use
       exit
     end
     if args.first.nil?
-      puts "Please set verison you switch."
+      puts 'Please set verison you switch.'
       exit
     end
 
     unless exists?(args.first)
-      puts "Please set already installed version."
+      puts 'Please set already installed version.'
       exit
     end
     version = args.first
@@ -51,8 +51,8 @@ class Use
 		end
 
 		default = File.join(MVM::SETTING_DIR, MVM::DEFAULT)
-		open(default,"w") do |f|
-			f.write(version+"\n")
+		open(default, 'w') do |f|
+			f.write(version + "\n")
 		end
 	end
 	
@@ -77,7 +77,7 @@ class Use
     end
     # create symbolic link
     path = open(MVM::INSTALL_PATH) do |f| f.read.chomp end
-    if path == ""
+    if path == ''
       path = MVM::INSTALL_DIR
     end
     system("ln -s #{path}/#{version}/bin #{MVM::SYMBOLIC_LINK}")
